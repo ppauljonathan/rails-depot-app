@@ -35,8 +35,8 @@
             <li>
               <%= link_to 'Destroy',
                            product,
+                           method: :delete
                           data: { 
-                            turbo_method: :delete,
                             turbo_confirm: 'Are you sure?'
                           } %>
             </li>
