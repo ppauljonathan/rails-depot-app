@@ -31,6 +31,11 @@
       border-top: solid thin;
     }
   }
+
+  .button_to {
+    display: inline;
+  }
+
   button[type="submit"] {
     background-color: #881;
     border-radius: 0.354em;
@@ -42,4 +47,5 @@
   button[type="submit"]:hover {
     background-color: #992;
   }
+  
 }
