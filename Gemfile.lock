@@ -90,10 +90,14 @@ GEM
       reline (>= 0.3.1)
     erubi (1.12.0)
     ffi (1.15.5)
+    glob (0.4.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    i18n-js (4.2.2)
+      glob (>= 0.4.0)
+      i18n
     importmap-rails (1.1.5)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
@@ -225,6 +229,7 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  i18n-js
   importmap-rails
   jbuilder
   puma (~> 5.0)

@@ -12,23 +12,23 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name, t('.name'), style: "display: block" %>
     <%= form.text_field :name, size: 40 %>
   </div>
 
   <div>
-    <%= form.label :address, style: "display: block" %>
+    <%= form.label :address, t('.address'), style: "display: block" %>
     <%= form.text_area :address, rows: 3, cols: 40 %>
   </div>
 
   <div>
-    <%= form.label :email, style: "display: block" %>
+    <%= form.label :email, t('.email'), style: "display: block" %>
     <%= form.text_field :email %>
   </div>
 
   <div id="pay-type-component"></div>
 
   <div>
-    <%= form.submit 'Place Order' %>
+    <%= form.submit  t('.submit'), %>
   </div>
 <% end %>
