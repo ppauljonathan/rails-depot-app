@@ -14,6 +14,9 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
+
+  config.active_storage.service = :local
+
   config.action_cable.allowed_request_origins = ['ws://localhost:3000/cable']
   config.action_cable.disable_request_forgery_protection = true
   # Settings specified here will take precedence over those in config/application.rb.
