@@ -24,6 +24,8 @@ class OrdersController < ApplicationController
 
   # POST /orders or /orders.json
   def create
+    p order_params
+    p payment_params
     @order = Order.new(order_params)
     @order.add_line_items_from_cart(@cart)
 
@@ -31,6 +33,7 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
+        ChargeOrderJob.perform_later(@order, payment_params.to_h)
         format.html { redirect_to store_index_url, notice: "Thank you for your order" }
         format.json { render :show, status: :created, location: @order }
       else
@@ -71,7 +74,22 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:name, :address, :email, :pay_type)
+      params.require(:order).permit(
+        :name,
+        :address,
+        :email,
+        :pay_type
+      )
+    end
+
+    def payment_params
+      params.require(:payment).permit(
+        :routing_number,
+        :account_number,
+        :po_number,
+        :expiration_date,
+        :credit_card_number
+      )
     end
 
     def ensure_cart_isnt_empty
