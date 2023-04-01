@@ -32,6 +32,21 @@
   </div>
 
   <div>
+    <%= form.label :enabled, style: "display: inline" %>
+    <%= form.check_box :enabled %>
+  </div>
+
+  <div>
+    <%= form.label :discount_price, style: "display: block" %>
+    <%= form.text_field :discount_price %>
+  </div>
+
+  <div>
+    <%= form.label :permalink, style: "display: block" %>
+    <%= form.text_field :permalink %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
