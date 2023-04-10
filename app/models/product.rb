@@ -10,6 +10,8 @@ class UrlValidator < ActiveModel::EachValidator
 end
 
 class Product < ApplicationRecord
+  before_validation :assign_default_title, :assign_default_discount_price
+
   has_many :line_items
   validates :title, presence: true
   validates :words_in_description, length: { in: 5..10, message: 'should be between 5 and 10 words' }
@@ -53,5 +55,18 @@ class Product < ApplicationRecord
 
     def price_greater_than_discount_price
       errors.add(:discount_price, "must be less than #{price}") if price <= discount_price
+    end
+
+    def assign_default_title
+      return if name.blank?
+
+      name = 'abc'
+    end
+
+    def assign_default_discount_price
+      return unless discount_price.blank?
+      return if price.blank?
+
+      discount_price = price
     end
 end
