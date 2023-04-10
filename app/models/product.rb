@@ -52,6 +52,9 @@ class Product < ApplicationRecord
     end
 
     def price_greater_than_discount_price
+      return if discount_price.blank?
+      return errors.add(:discount_price, 'cannot place discount price for product with no price') if price.blank?
+
       errors.add(:discount_price, "must be less than #{price}") if price <= discount_price
     end
 end
