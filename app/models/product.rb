@@ -10,7 +10,8 @@ class UrlValidator < ActiveModel::EachValidator
 end
 
 class Product < ApplicationRecord
-  before_validation :assign_default_title, :assign_default_discount_price
+  before_validation :set_default_title, unless: :title
+  before_validation :set_default_discount_price, if: :price, unless: :discount_price
 
   has_many :line_items
   validates :title, presence: true
@@ -32,7 +33,7 @@ class Product < ApplicationRecord
   validates :discount_price, numericality: { less_than: :price, greater_than_or_equal_to: 0.01 }, allow_blank: true
 
   # with custom validator
-  validate :price_greater_than_discount_price
+  # validate :price_greater_than_discount_price
 
   before_destroy :ensure_not_referenced_by_any_line_items
 
@@ -54,22 +55,14 @@ class Product < ApplicationRecord
     end
 
     def price_greater_than_discount_price
-      return if discount_price.blank?
-      return errors.add(:discount_price, 'cannot place discount price for product with no price') if price.blank?
-
       errors.add(:discount_price, "must be less than #{price}") if price <= discount_price
     end
 
-    def assign_default_title
-      return unless title.blank?
-
+    def set_default_title
       self.title = 'abc'
     end
 
-    def assign_default_discount_price
-      return if price.blank?
-      return unless discount_price.blank?
-
+    def set_default_discount_price
       self.discount_price = price
     end
 end

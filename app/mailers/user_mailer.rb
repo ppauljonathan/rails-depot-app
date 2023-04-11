@@ -1,8 +1,11 @@
 class UserMailer < ApplicationMailer
-  default from: 'Paul <depot@example.com>'
 
-  def registered(user)
-    @user = user
-    mail to: user.email, subject: 'Welcome'
+  SENDER_MAIL = 'Paul <depot@example.com>'.freeze
+
+  default from: SENDER_MAIL
+
+  def registered(user_id)
+    @user = User.find(user_id)
+    mail to: @user.email, subject: t('.welcome')
   end
 end

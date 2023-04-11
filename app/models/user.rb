@@ -1,23 +1,12 @@
 class User < ApplicationRecord
-  class AdminCallbacks
-    def self.raise_error(user, action)
-      return unless user.is_admin?
 
-      user.errors.add(:base, "Can't #{action} Admin user")
-      throw :abort
-    end
+  ADMIN_USER_EMAIL = 'admin@depot.com'.freeze
 
-    def self.before_destroy(user)
-      raise_error(user, :destroy)
-    end
-
-    def self.before_update(user)
-      raise_error(user, :update)
-    end
+  class Error < StandardError
   end
 
-  before_destroy AdminCallbacks
-  before_update AdminCallbacks
+  before_destroy :ensure_admin_is_not_updated_or_deleted, if: :is_admin?
+  before_update :ensure_admin_is_not_updated_or_deleted, if: :is_admin?
 
   after_create_commit :send_confirmation_email
 
@@ -28,22 +17,23 @@ class User < ApplicationRecord
 
   after_destroy :ensure_an_admin_remains
 
-  class Error < StandardError
-  end
-
-  def is_admin?
-    email == 'admin@depot.com'
-  end
-
   private
 
     def ensure_an_admin_remains
       if User.count.zero?
-        raise Error.new "Can't Delete Last User"
+        raise Error, "Can't Delete Last User"
       end
     end
 
     def send_confirmation_email
-      UserMailer.registered(self).deliver_later
+      UserMailer.registered(id).deliver_later
+    end
+
+    def is_admin?
+      email == ADMIN_USER_EMAIL
+    end
+
+    def ensure_admin_is_not_updated_or_deleted
+      raise Error, "Can't update/delete admin"
     end
 end
