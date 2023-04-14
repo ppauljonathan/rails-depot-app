@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     end
   end
 
-  rescue_from 'User::Error' do |exeption|
+  rescue_from 'LastUserDeleteError' do |exeption|
     redirect_to users_url, notice: exeption.message
   end
 
