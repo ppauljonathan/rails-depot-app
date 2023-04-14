@@ -6,6 +6,8 @@ class UserMailer < ApplicationMailer
 
   def registered(user_id)
     @user = User.find(user_id)
+    return unless @user
+
     mail to: @user.email, subject: t('.welcome')
   end
 end

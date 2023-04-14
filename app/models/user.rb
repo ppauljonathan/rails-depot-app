@@ -2,9 +2,6 @@ class User < ApplicationRecord
 
   ADMIN_USER_EMAIL = 'admin@depot.com'.freeze
 
-  class Error < StandardError
-  end
-
   before_destroy :ensure_admin_is_not_updated_or_deleted, if: :is_admin?
   before_update :ensure_admin_is_not_updated_or_deleted, if: :is_admin?
 
@@ -21,7 +18,7 @@ class User < ApplicationRecord
 
     def ensure_an_admin_remains
       if User.count.zero?
-        raise Error, "Can't Delete Last User"
+        raise LastUserDeleteError, "Can't Delete Last User"
       end
     end
 
@@ -34,6 +31,7 @@ class User < ApplicationRecord
     end
 
     def ensure_admin_is_not_updated_or_deleted
-      raise Error, "Can't update/delete admin"
+      errors.add :base, 'Cannot Update or Delete Admin User'
+      throw :abort
     end
 end

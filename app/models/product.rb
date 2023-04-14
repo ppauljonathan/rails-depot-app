@@ -1,4 +1,7 @@
 class UrlValidator < ActiveModel::EachValidator
+
+  DEFAULT_TITLE = 'abc'.freeze
+
   def validate_each(record, attribute, value)
     return unless value =~ PERMITTED_IMAGE_URL_TYPES_REGEX
 
@@ -59,7 +62,7 @@ class Product < ApplicationRecord
     end
 
     def set_default_title
-      self.title = 'abc'
+      self.title = DEFAULT_TITLE
     end
 
     def set_default_discount_price
