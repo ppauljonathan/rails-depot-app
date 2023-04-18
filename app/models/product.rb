@@ -49,4 +49,12 @@ class Product < ApplicationRecord
     def price_greater_than_discount_price
       errors.add(:discount_price, "must be less than #{price}") if price <= discount_price
     end
+
+    def set_default_title
+      self.title = DEFAULT_TITLE
+    end
+
+    def set_default_discount_price
+      self.discount_price = price
+    end
 end

@@ -1,3 +1,14 @@
+<% if @user.errors.any? %>
+  <div style="color: red">
+      <ul>
+        <% @user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+
 <p style="color: green"><%= notice %></p>
 
 <%= render @user %>
