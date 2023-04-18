@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
     def ensure_an_admin_remains
       if User.count.zero?
-        raise LastUserDeleteError, "Can't Delete Last User"
+        raise UserDeleteError, "Can't Delete Last User"
       end
     end
 
