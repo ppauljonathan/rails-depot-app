@@ -1,0 +1,2 @@
+class UserDeleteError < StandardError
+end

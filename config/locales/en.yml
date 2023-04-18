@@ -60,3 +60,26 @@ en:
 
 
   thanks:          "Thank you for your order"
+
+  users:
+    new:
+      title: 'New User'
+      back: 'Back to Users'
+    form:
+      legend: 'Enter User Details'
+      name: 'Name:'
+      email: 'Email:'
+      password: 'Password:'
+      confirm: 'Confirm:'
+    create:
+      create_notice: 'User was successfully created'
+    update:
+      update_notice: 'User was successfully updated'
+    destroy:
+      destroy_notice: 'User was successfully destroyed'
+  
+  user_mailer:
+    registered:
+      greeting: 'Dear'
+      message: 'Thank you for registering on the Pragmatic Programmers website'
+      welcome: 'Welcome'

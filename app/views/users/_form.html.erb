@@ -12,24 +12,24 @@
       </ul>
     </div>
   <% end %>
-  <h2>Enter User Details</h2>
+  <h2><%= t('.legend') %></h2>
   <div>
-    <%= form.label :name, 'Name:' %>
+    <%= form.label :name, t('.name') %>
     <%= form.text_field :name, size: 40 %>
   </div>
 
   <div>
-    <%= form.label :email, 'Email:' %>
+    <%= form.label :email, t('.email') %>
     <%= form.text_field :email, size: 40 %>
   </div>
 
   <div>
-    <%= form.label :password, 'Password: ' %>
+    <%= form.label :password, t('.password') %>
     <%= form.password_field :password, size: 40 %>
   </div>
 
   <div>
-    <%= form.label :password_confirmation, 'Confirm: ' %>
+    <%= form.label :password_confirmation, t('.confirm') %>
     <%= form.password_field :password_confirmation,
     id: :user_passwor_confirmation,
     size: 40 %>

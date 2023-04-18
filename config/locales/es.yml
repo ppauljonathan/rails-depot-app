@@ -64,3 +64,26 @@ es:
         po_number: "Número"
 
   thanks:          "Gracias por su pedido"
+
+  users:
+    new:
+      title: 'Nuevo usuario'
+      back: 'Volver a Usuarios'
+    form:
+      legend: 'Introduzca los detalles del usuario'
+      name: 'Nombre: '
+      email: 'Correo electrónico:'
+      password: 'Contraseña:'
+      confirm: 'Confirmar: '
+    create:
+      create_notice: 'Usuario fue creada exitosamente'
+    update:
+      update_notice: 'Usuario fue actualizado con éxito'
+    destroy:
+      destroy_notice: 'Usuario fue destruida con éxito'
+
+  user_mailer:
+    registered:
+      greeting: 'Estimade'
+      message: 'Gracias por registrarse en el sitio web de Pragmatic Programmers'
+      welcome: 'Bienvenido'
