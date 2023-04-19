@@ -1,11 +1,24 @@
+<table>
+<tr>
+  <td>Quantity</td>
+  <td>Product</td>
+  <td>Price</td>
+</tr>
 <% @line_items.each do |line_item| %>
-  <%= render 'line_items/line_item', line_item: line_item %>
+  <tr>
+    <%= render 'line_items/line_item', line_item: line_item %>
+  </tr>
 <% end %>
+</table>
 
 <footer>
-<%= link_to 'First', '/users/line_items/page/1' unless @current_page == 1 %>
-<%= link_to 'Previous', "/users/line_items/page/#{@current_page - 1}" if @current_page > 2 %>
-<%= link_to 'Next', "/users/line_items/page/#{@current_page + 1}" if @current_page < (@total_pages - 1) %>
-<%= link_to 'Last', "/users/line_items/page/#{@total_pages}" unless @current_page == @total_pages %>
+<table>
+  <tr>
+    <td><%= link_to 'First', '/users/line_items/page/1' unless @current_page == 1 %></td>
+    <td><%= link_to 'Previous', "/users/line_items/page/#{@current_page - 1}" if @current_page > 2 %></td>
+    <td><%= link_to 'Next', "/users/line_items/page/#{@current_page + 1}" if @current_page < (@total_pages - 1) %></td>
+    <td><%= link_to 'Last', "/users/line_items/page/#{@total_pages}" unless @current_page == @total_pages || @total_pages == 0 %></td>
+  </tr>
+</table>
 </footer>
 

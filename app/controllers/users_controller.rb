@@ -76,7 +76,7 @@ class UsersController < ApplicationController
                        .limit(@@line_items_per_page)
                        .offset(@@line_items_per_page * (@current_page - 1))
     
-    @total_pages = @user.line_items.count / @@line_items_per_page
+    @total_pages = (@user.line_items.count / @@line_items_per_page.to_f).ceil
   end
 
 
