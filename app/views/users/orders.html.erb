@@ -1,0 +1,5 @@
+<ul>
+  <% @user.orders.each do |order| %>
+    <li><%= render 'order', order: order %></li>
+  <% end %>
+</ul>

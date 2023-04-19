@@ -26,6 +26,8 @@ class LineItemsController < ApplicationController
   def create
     product = Product.find(params[:product_id])
     @line_item = @cart.add_product(product)
+    @line_item.user_id = session[:user_id]
+
     respond_to do |format|
       if @line_item.save
         format.html { redirect_to store_index_url }

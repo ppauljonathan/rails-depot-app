@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
   skip_before_action :authorize, only: %i[new create]
+  before_action :set_user_from_session, only: %i[orders line_items]
+
+  @@line_items_per_page = 5
 
   # GET /users or /users.json
   def index
@@ -63,6 +66,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def orders
+  end
+
+  def line_items
+    @current_page = page_params.to_i
+
+    @line_items = @user.line_items
+                       .limit(@@line_items_per_page)
+                       .offset(@@line_items_per_page * (@current_page - 1))
+    
+    @total_pages = @user.line_items.count / @@line_items_per_page
+  end
+
+
   rescue_from 'LastUserDeleteError' do |exeption|
     redirect_to users_url, notice: exeption.message
   end
@@ -73,8 +90,16 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    def set_user_from_session
+      @user = User.find(session[:user_id])
+    end
+
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def page_params
+      params.require(:page_id)
     end
 end

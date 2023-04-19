@@ -1,0 +1,8 @@
+<h3>Order id: <%= order.id %></h3>
+<h4> order contents:  </h4>
+<ul>
+  <% order.line_items.each do |line_item| %>
+    <li><%= render 'line_items/line_item', line_item: line_item %></li>
+  <% end %>
+</ul>
+<h4>Total Price: <%= order.line_items.map(&:total_price).reduce(:+) %></h4>

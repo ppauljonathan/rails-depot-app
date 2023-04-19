@@ -2,7 +2,9 @@ class Product < ApplicationRecord
 
   SPECIAL_CHARACTERS_AND_SPACES_REGEX = /[^[:alnum:]|-]/i.freeze
   
-  has_many :line_items
+  has_many :line_items, dependent: :restrict_with_error
+  has_many :carts, through: :line_items
+
   validates :title, presence: true
   validates :words_in_description, length: { in: 5..10, message: 'should be between 5 and 10 words' }
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }, allow_blank: true
@@ -27,16 +29,7 @@ class Product < ApplicationRecord
   # with custom validator
   validate :price_greater_than_discount_price, if: %i[discount_price price]
 
-  before_destroy :ensure_not_referenced_by_any_line_items
-
   private
-
-    def ensure_not_referenced_by_any_line_items
-      unless line_items.empty?
-        errors.add(:base, 'Line Items Present')
-        throw :abort
-      end
-    end
 
     def hyphenated_words_in_permalink
       permalink.split('-')

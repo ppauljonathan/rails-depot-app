@@ -29,7 +29,8 @@ class ProductsController < ApplicationController
         format.json { render :show, status: :created, location: @product }
 
         @products = Product.all.order(:title)
-        ActionCable.server.broadcast 'products', html: render_to_string('store/index', layout: false)
+        # minor error in passing error, not part of associations PR pls ignore
+        ActionCable.server.broadcast('products', { html: render_to_string('store/index', layout: false) })
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -52,11 +53,16 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1 or /products/1.json
   def destroy
-    @product.destroy
-
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
-      format.json { head :no_content }
+    
+    if @product.destroy
+      respond_to do |format|
+        format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to @product, notice: 'Cannot delete product referenced by a line item' }
+      end
     end
   end
 
