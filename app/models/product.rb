@@ -5,6 +5,12 @@ class Product < ApplicationRecord
   has_many :line_items, dependent: :restrict_with_error
   has_many :carts, through: :line_items
 
+  belongs_to :category, counter_cache: true
+
+  after_create_commit :increment_super_category_counter
+  after_update_commit :update_super_category_counter
+  after_destroy_commit :decrement_super_category_counter
+
   validates :title, presence: true
   validates :words_in_description, length: { in: 5..10, message: 'should be between 5 and 10 words' }
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }, allow_blank: true
@@ -58,5 +64,22 @@ class Product < ApplicationRecord
 
     def set_default_discount_price
       self.discount_price = price
+    end
+
+    def increment_super_category_counter
+      Category.increment_counter(:products_count, category.super_category_id)
+    end
+
+    def decrement_super_category_counter
+      Category.decrement_counter(:products_count, category.super_category_id)
+    end
+
+    def update_super_category_counter
+      return unless category_id_previously_changed?
+
+      prev_super_category_id = Category.find(category_id_previously_was).super_category_id
+
+      Category.decrement_counter(:products_count, prev_super_category_id)
+      increment_super_category_counter
     end
 end

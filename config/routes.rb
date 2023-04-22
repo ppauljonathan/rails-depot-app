@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  get 'category/index'
   get 'admin' => 'admin#index'
+  get 'categories', to: 'categories#index'
   controller :sessions do
     get 'login' => :new
     post 'login' => :create

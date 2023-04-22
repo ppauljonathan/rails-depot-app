@@ -1,0 +1,13 @@
+<h1>Categories: </h1>
+<ul>
+  <% @categories.find_each do |category| %>
+    <li>
+      <%= category.name %>
+      <ul>
+        <% category.sub_categories.find_each do |sub_category| %>
+          <li><%= sub_category.name %></li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>
