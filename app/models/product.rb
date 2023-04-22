@@ -29,6 +29,15 @@ class Product < ApplicationRecord
   # with custom validator
   validate :price_greater_than_discount_price, if: %i[discount_price price]
 
+  scope :enabled_products, -> { where enabled: true }
+
+  # Build queries for following
+  #   - Get All products which are present in atleast one line_item
+  scope :products_in_line_item, -> { joins(:line_items).distinct }
+  #   - Get array of product titles which are present in atleast one line item
+  scope :product_titles_in_line_item, -> { products_in_line_item.pluck(:title) }
+  
+
   private
 
     def hyphenated_words_in_permalink
