@@ -17,10 +17,12 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    @user.build_address
   end
 
   # GET /users/1/edit
   def edit
+    @user.build_address unless @user.address
   end
 
   # POST /users or /users.json
@@ -67,6 +69,7 @@ class UsersController < ApplicationController
   end
 
   def orders
+    render layout: 'my_orders'
   end
 
   def line_items
@@ -77,6 +80,7 @@ class UsersController < ApplicationController
                        .offset(@@line_items_per_page * (@current_page - 1))
     
     @total_pages = (@user.line_items.count / @@line_items_per_page.to_f).ceil
+    render layout: 'my_orders'
   end
 
 
@@ -96,7 +100,17 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(
+        :name,
+        :email,
+        :password,
+        :password_confirmation,
+        address_attributes: [
+          :state,
+          :country,
+          :pincode
+        ]
+      )
     end
 
     def page_params

@@ -75,6 +75,10 @@ es:
       email: 'Correo electrónico:'
       password: 'Contraseña:'
       confirm: 'Confirmar: '
+      address: 'DIRECCIÓN:'
+      state: 'estatal:'
+      country: 'País:'
+      pincode: 'código PIN:'
     create:
       create_notice: 'Usuario fue creada exitosamente'
     update:

@@ -1,3 +1,8 @@
+<% content_for :title do %>
+  Your Orders
+<% end %>
+
+
 <ul>
   <% @user.orders.each do |order| %>
     <li><%= render 'order', order: order %></li>

@@ -2,6 +2,8 @@ class Product < ApplicationRecord
 
   SPECIAL_CHARACTERS_AND_SPACES_REGEX = /[^[:alnum:]|-]/i.freeze
   
+  has_many_attached :images
+
   has_many :line_items, dependent: :restrict_with_error
   has_many :carts, through: :line_items
 
@@ -34,6 +36,12 @@ class Product < ApplicationRecord
 
   # with custom validator
   validate :price_greater_than_discount_price, if: %i[discount_price price]
+
+  validates :images, length: {
+    in: 1..3,
+    too_long: 'too many, pls upload max of 3 images',
+    too_short: 'too few, pls upload at least 1 image'
+  }
 
   scope :enabled_products, -> { where enabled: true }
 

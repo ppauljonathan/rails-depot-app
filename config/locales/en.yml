@@ -71,6 +71,10 @@ en:
       email: 'Email:'
       password: 'Password:'
       confirm: 'Confirm:'
+      address: 'Address:'
+      state: 'State:'
+      country: 'Country:'
+      pincode: 'Pin Code:'
     create:
       create_notice: 'User was successfully created'
     update:

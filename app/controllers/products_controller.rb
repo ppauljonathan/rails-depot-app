@@ -3,7 +3,10 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
-    @products = Product.all.order(:title)
+    respond_to do |format|
+      format.html { @products = Product.all.order(:title) }
+      format.json { render json: Product.joins(:category).select(:title, :name, :id) }
+    end
   end
 
   # GET /products/1 or /products/1.json
@@ -91,7 +94,9 @@ class ProductsController < ApplicationController
         :price,
         :enabled,
         :discount_price,
-        :permalink
+        :permalink,
+        :category_id,
+        images: []
       )
     end
 end

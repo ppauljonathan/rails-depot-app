@@ -36,6 +36,24 @@
   </div>
 
   <div>
+    <%= t('.address') %>
+    <%= form.fields_for :address do |address_form| %>
+      <div>
+        <%= address_form.label :state, t('.state') %>
+        <%= address_form.text_field :state %>
+      </div>
+      <div>
+        <%= address_form.label :country, t('.country') %>
+        <%= address_form.text_field :country %>
+      </div>
+      <div>
+        <%= address_form.label :pincode, t('.pincode') %>
+        <%= address_form.text_field :pincode %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
