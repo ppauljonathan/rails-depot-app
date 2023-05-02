@@ -9,7 +9,12 @@
     <% @products.each do |product| %>
       <% cache product do %>
         <li>
-          <%= image_tag(product.image_url) %>
+          <% if product.images_attachments.count.zero? %>
+            <%= image_tag(product.image_url, class: 'list_image') %>
+          <% else %>
+            <%= image_tag(url_for(product.images_attachments[0]), class: 'list_image') %>
+          <% end %>
+          
           <h2><%= product.title %></h2>
           <p>
             <%= sanitize(product.description) %>

@@ -13,7 +13,7 @@ class Order < ApplicationRecord
   validates :name, :address, :email, presence: true
   validates :pay_type, inclusion: pay_types.keys
 
-  scope :by_date, ->(from = Time.now.midnight - 1.day, to = Time.now.midnight) do
+  scope :by_date, ->(from = Time.current.midnight - 1.day, to = Time.current.midnight) do
     where(
       created_at: (from...to)
     )

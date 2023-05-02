@@ -1,0 +1,13 @@
+<h1>Orders Placed</h1>
+
+<p>Select time range: <p>
+<%= form_with url: '/admin/reports', method: :get do |form| %>
+  <%= form.label :from_date %>
+  <%= form.date_field :from_date %>
+  <%= form.label :to %>
+  <%= form.date_field :to_date %>
+  <%= form.submit 'submit' %>
+<% end %>
+
+<h2>Orders</h2>
+<%= render partial: 'users/order', collection: @orders %>

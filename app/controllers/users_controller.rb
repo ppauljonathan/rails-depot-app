@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
   skip_before_action :authorize, only: %i[new create]
-  before_action :set_user_from_session, only: %i[orders line_items]
 
   @@line_items_per_page = 5
 
@@ -75,11 +74,11 @@ class UsersController < ApplicationController
   def line_items
     @current_page = page_params.to_i
 
-    @line_items = @user.line_items
+    @line_items = current_user.line_items
                        .limit(@@line_items_per_page)
                        .offset(@@line_items_per_page * (@current_page - 1))
     
-    @total_pages = (@user.line_items.count / @@line_items_per_page.to_f).ceil
+    @total_pages = (current_user.line_items.count / @@line_items_per_page.to_f).ceil
     render layout: 'my_orders'
   end
 

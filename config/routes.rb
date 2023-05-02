@@ -14,6 +14,11 @@ Rails.application.routes.draw do
   get '/users/line_items', to: 'users#line_items', defaults: { page_id: 1 }
   get '/users/line_items/page/:page_id', to: 'users#line_items'
 
+  namespace :admin do
+    get 'categories', to: 'categories#index'
+    get 'reports', to: 'reports#index'
+  end
+
   scope '(:locale)' do
     resources :orders
     resources :users
