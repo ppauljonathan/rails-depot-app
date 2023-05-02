@@ -70,7 +70,7 @@ class UsersController < ApplicationController
   end
 
   def line_items
-    @current_page = page_params.to_i
+    @current_page = (params[:page] ? params[:page].split('/')[-1].to_i : 1)
 
     @line_items = @user.line_items
                        .limit(@@line_items_per_page)
@@ -97,9 +97,5 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
-
-    def page_params
-      params.require(:page_id)
     end
 end
