@@ -8,4 +8,17 @@ class Category < ApplicationRecord
   validates_with OneLevelNestingValidator
 
   scope :base_categories, -> { where super_category: nil }
+
+  def fetch_products
+    return products if super_category_id
+
+    product_list = []
+    product_list.append(*products)
+
+    sub_categories.each do |sub_category|
+      product_list.append(*sub_category.fetch_products)
+    end
+
+    product_list
+  end
 end

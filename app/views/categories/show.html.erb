@@ -1,0 +1,2 @@
+<h1>Category: <%= @category.name %></h1>
+<%= render partial: 'products/product', collection: @products, locals: { is_index: true } %>

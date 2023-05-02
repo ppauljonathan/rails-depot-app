@@ -18,10 +18,8 @@
 <footer>
 <table>
   <tr>
-    <td><%= link_to 'First', '/users/line_items/page/1' unless @current_page == 1 %></td>
-    <td><%= link_to 'Previous', "/users/line_items/page/#{@current_page - 1}" if @current_page > 2 %></td>
-    <td><%= link_to 'Next', "/users/line_items/page/#{@current_page + 1}" if @current_page < (@total_pages - 1) %></td>
-    <td><%= link_to 'Last', "/users/line_items/page/#{@total_pages}" unless @current_page == @total_pages || @total_pages == 0 %></td>
+    <td><%= link_to 'Previous', "/my-line-items/page/#{@current_page - 1}" if @current_page > 1 %></td>
+    <td><%= link_to 'Next', "/my-line-items/page/#{@current_page + 1}" if @current_page < @total_pages %></td>
   </tr>
 </table>
 </footer>

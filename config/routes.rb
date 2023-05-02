@@ -1,35 +1,35 @@
 Rails.application.routes.draw do
-  get 'category/index'
-  get 'admin' => 'admin#index'
-  get 'categories', to: 'categories#index'
-  controller :sessions do
-    get 'login' => :new
-    post 'login' => :create
-    delete 'logout' => :destroy
-  end
+  root 'store#index', as: 'store_index', via: :all
 
-  resources :support_requests, only: %i[index update]
+  constraints(->(req) { !/Chrome/.match?(req.env['HTTP_USER_AGENT']) }) do
+    get 'admin' => 'admin#index'
 
-  # get '/users/orders'
-  # get '/users/line_items(/*page)', to: 'users#line_items'
+    resources :categories, only: [:index, :show], id: /\d+/
+    resources :categories, to: redirect('/'), status: 302
 
-  namespace :admin do
-    get 'categories', to: 'categories#index'
-    get 'reports', to: 'reports#index'
-  end
-
-  scope '(:locale)' do
-    resources :orders
-    resources :users do
-      collection do
-        get 'orders'
-        get 'line_items(/*page)', to: 'users#line_items'
-      end
+    controller :sessions do
+      get 'login' => :new
+      post 'login' => :create
+      delete 'logout' => :destroy
     end
-    resources :line_items
-    resources :carts
-    resources :products, path: '/books'
-    root 'store#index', as: 'store_index', via: :all
+
+    resources :support_requests, only: %i[index update]
+
+    namespace :admin do
+      get 'categories', to: 'categories#index'
+      get 'reports', to: 'reports#index'
+    end
+
+    get 'my-orders', to: 'users#orders'
+    get 'my-line-items(/*page)', to: 'users#line_items'
+    
+    scope '(:locale)' do
+      resources :orders
+      resources :users
+      resources :line_items
+      resources :carts
+      resources :products, path: '/books'
+    end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
