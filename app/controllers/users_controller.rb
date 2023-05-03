@@ -73,7 +73,7 @@ class UsersController < ApplicationController
   end
 
   def line_items
-    @current_page = (params[:page] ? params[:page].split('/')[-1].to_i : 1)
+    @current_page = page_params.to_i
 
     @line_items = @user.line_items
                        .limit(@@line_items_per_page)
@@ -111,5 +111,9 @@ class UsersController < ApplicationController
           :pincode
         ]
       )
+    end
+
+    def page_params
+      params.require(:page_id)
     end
 end
