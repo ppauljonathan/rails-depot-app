@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     end
 
     get 'my-orders', to: 'users#orders'
-    get 'my-line-items(/*page)', to: 'users#line_items'
+    get 'my-line-items(/page/:page_id)', to: 'users#line_items'
     
     scope '(:locale)' do
       resources :orders
