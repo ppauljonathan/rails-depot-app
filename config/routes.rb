@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :users do
       collection do
         get 'orders'
-        get 'line_items(/*page)', to: 'users#line_items'
+        get 'line_items(/page/:page_id)', to: 'users#line_items', defaults: { page_id: 1 }
       end
     end
     resources :line_items
