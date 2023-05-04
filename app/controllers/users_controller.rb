@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
   skip_before_action :authorize, only: %i[new create]
+  
+
+  LINE_ITEMS_PER_PAGE = 5
 
   # GET /users or /users.json
   def index
@@ -62,6 +65,21 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def orders
+    @orders = @current_user.orders
+  end
+
+  def line_items
+    @current_page = params[:page] || 1 
+
+    @line_items = @current_user.line_items
+                       .limit(LINE_ITEMS_PER_PAGE)
+                       .offset(LINE_ITEMS_PER_PAGE * (@current_page - 1))
+    
+    @total_pages = (@current_user.line_items.count / LINE_ITEMS_PER_PAGE.to_f).ceil
+  end
+
 
   rescue_from 'LastUserDeleteError' do |exeption|
     redirect_to users_url, notice: exeption.message

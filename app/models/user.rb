@@ -14,6 +14,10 @@ class User < ApplicationRecord
 
   after_destroy :ensure_an_admin_remains
 
+  has_many :orders
+
+  has_many :line_items, through: :orders
+
   private
 
     def ensure_an_admin_remains

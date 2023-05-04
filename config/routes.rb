@@ -5,15 +5,23 @@ Rails.application.routes.draw do
     post 'login' => :create
     delete 'logout' => :destroy
   end
-  resources :products
 
   resources :support_requests, only: %i[index update]
 
+  # get '/users/orders'
+  # get '/users/line_items(/*page)', to: 'users#line_items'
+
   scope '(:locale)' do
+    resources :users do
+      collection do
+        get 'orders'
+        get 'line_items'
+      end
+    end
     resources :orders
     resources :line_items
     resources :carts
-    resources :users
+    resources :products, path: '/books'
     root 'store#index', as: 'store_index', via: :all
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

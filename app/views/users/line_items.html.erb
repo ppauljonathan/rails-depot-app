@@ -1,0 +1,22 @@
+<table>
+<tr>
+  <td>Quantity</td>
+  <td>Product</td>
+  <td>Price</td>
+</tr>
+<% @line_items.each do |line_item| %>
+  <tr>
+    <%= render 'line_items/line_item', line_item: line_item %>
+  </tr>
+<% end %>
+</table>
+
+<footer>
+<table>
+  <tr>
+    <td><%= link_to 'Previous', "/users/line_items/?page=#{@current_page - 1}" if @current_page > 2 %></td>
+    <td><%= link_to 'Next', "/users/line_items/?page=#{@current_page + 1}" if @current_page < (@total_pages - 1) %></td>
+  </tr>
+</table>
+</footer>
+
