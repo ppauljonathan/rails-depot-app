@@ -26,3 +26,5 @@ Product.create!(title: 'Programming Crystal',
   image_url: 'crystal.jpg',
   permalink: 'x-y-z',
   price: 40.00)
+
+User.create!(name: 'paul', password: 'secret', email: 'admin@depot.com')

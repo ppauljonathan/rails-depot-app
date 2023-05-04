@@ -13,6 +13,20 @@ class Order < ApplicationRecord
   validates :name, :address, :email, presence: true
   validates :pay_type, inclusion: pay_types.keys
 
+  scope :by_date, ->(from = Time.now - 1.day, to = Time.now) { where created_at: (from...to) }
+
+  # there is a difference in the query for Order.by_date and user.orders.by_date
+  # Order.by_date
+  #   SELECT * FROM orders
+  #     WHERE created_at >= 'from-date'
+  #     AND created_at < 'to-date'
+
+  # user.orders.by_date
+  #   SELECT * FROM orders
+  #     WHERE user_id = 'user-id of user'
+  #     AND created_at >= 'from-date'
+  #     AND created_at < 'to-date'
+
   def add_line_items_from_cart(cart)
     cart.line_items.each do |item|
       item.cart_id = nil
