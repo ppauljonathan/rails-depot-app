@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
   skip_before_action :authorize, only: %i[new create]
-  before_action :set_user_from_session, only: %i[orders line_items]
+  
 
-  @@line_items_per_page = 5
+  LINE_ITEMS_PER_PAGE = 5
 
   # GET /users or /users.json
   def index
@@ -67,16 +67,17 @@ class UsersController < ApplicationController
   end
 
   def orders
+    @orders = @current_user.orders
   end
 
   def line_items
-    @current_page = page_params.to_i
+    @current_page = params[:page] || 1 
 
-    @line_items = @user.line_items
-                       .limit(@@line_items_per_page)
-                       .offset(@@line_items_per_page * (@current_page - 1))
+    @line_items = @current_user.line_items
+                       .limit(LINE_ITEMS_PER_PAGE)
+                       .offset(LINE_ITEMS_PER_PAGE * (@current_page - 1))
     
-    @total_pages = (@user.line_items.count / @@line_items_per_page.to_f).ceil
+    @total_pages = (@current_user.line_items.count / LINE_ITEMS_PER_PAGE.to_f).ceil
   end
 
 
@@ -90,16 +91,8 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
-    def set_user_from_session
-      @user = User.find(session[:user_id])
-    end
-
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
-
-    def page_params
-      params.require(:page_id)
     end
 end
