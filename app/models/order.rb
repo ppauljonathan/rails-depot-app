@@ -13,11 +13,7 @@ class Order < ApplicationRecord
   validates :name, :address, :email, presence: true
   validates :pay_type, inclusion: pay_types.keys
 
-  scope :by_date, ->(from = Time.now.midnight - 1.day, to = Time.now.midnight) do
-    where(
-      created_at: (from...to)
-    )
-  end
+  scope :by_date, ->(from = Time.now - 1.day, to = Time.now) { where created_at: (from...to) }
 
   # there is a difference in the query for Order.by_date and user.orders.by_date
   # Order.by_date
