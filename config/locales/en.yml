@@ -1,5 +1,13 @@
 en:
 
+  products:
+    create:
+      message: 'Product was Successfully Created'
+    update:
+      message: 'Product was Successfully Updated'
+    destroy:
+      message: 'Product was Successfully Deleted'
+
   number:
     currency:
       format:

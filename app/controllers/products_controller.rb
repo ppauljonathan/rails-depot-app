@@ -25,7 +25,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to product_url(@product), notice: "Product was successfully created." }
+        format.html { redirect_to product_url(@product), notice: t('.message') }
         format.json { render :show, status: :created, location: @product }
 
         @products = Product.all.order(:title)
@@ -42,7 +42,7 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
+        format.html { redirect_to product_url(@product), notice: t('.message') }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -56,12 +56,12 @@ class ProductsController < ApplicationController
     
     if @product.destroy
       respond_to do |format|
-        format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
+        format.html { redirect_to products_url, notice: t('.message') }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to @product, notice: 'Cannot delete product referenced by a line item' }
+        format.html { redirect_to @product, notice: t('.error')}
       end
     end
   end
