@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   get 'admin' => 'admin#index'
+
+  resources :categories
+
   controller :sessions do
     get 'login' => :new
     post 'login' => :create
