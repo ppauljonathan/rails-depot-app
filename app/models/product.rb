@@ -7,9 +7,9 @@ class Product < ApplicationRecord
 
   belongs_to :category, counter_cache: true
 
-  after_create_commit :increment_super_category_counter
-  after_update_commit :update_super_category_counter
-  after_destroy_commit :decrement_super_category_counter
+  after_create_commit :increment_parent_counter, if: :parent?
+  after_update_commit :update_parent_counter, if: :parent?, unless: :category_id_previously_changed?
+  after_destroy_commit :decrement_parent_counter, if: :parent?
 
   validates :title, presence: true
   validates :words_in_description, length: { in: 5..10, message: 'should be between 5 and 10 words' }
@@ -66,20 +66,24 @@ class Product < ApplicationRecord
       self.discount_price = price
     end
 
-    def increment_super_category_counter
-      Category.increment_counter(:products_count, category.super_category_id)
+    def parent?
+      category.parent_id.present?
     end
 
-    def decrement_super_category_counter
-      Category.decrement_counter(:products_count, category.super_category_id)
+    def increment_parent_counter
+      category.parent.increment!(:products_count)
     end
 
-    def update_super_category_counter
-      return unless category_id_previously_changed?
+    def decrement_parent_counter
+      category.parent.decrement!(:products_count)
+    end
 
-      prev_super_category_id = Category.find(category_id_previously_was).super_category_id
+    def update_parent_counter
+      prev_parent_id = Category.find(category_id_previously_was).parent_id
 
-      Category.decrement_counter(:products_count, prev_super_category_id)
-      increment_super_category_counter
+      return if prev_parent_id == category.parent_id
+
+      Category.decrement_counter(:products_count, prev_parent_id)
+      increment_parent_counter
     end
 end

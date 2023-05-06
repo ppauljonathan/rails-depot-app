@@ -65,12 +65,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_22_122647) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.integer "super_category_id"
+    t.string "name", null: false
+    t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "products_count", default: 0
-    t.index ["super_category_id"], name: "index_categories_on_super_category_id"
+    t.index ["name"], name: "index_categories_on_name"
+    t.index ["parent_id"], name: "index_categories_on_parent_id"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -106,7 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_22_122647) do
     t.boolean "enabled", default: false
     t.decimal "discount_price", precision: 8, scale: 2
     t.string "permalink"
-    t.integer "category_id", default: 1, null: false
+    t.integer "category_id", null: false
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
@@ -130,7 +131,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_22_122647) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "categories", "categories", column: "super_category_id"
+  add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "products"
