@@ -1,5 +1,13 @@
 es:
 
+  products:
+    create:
+      message: 'El producto fue creado con éxito'
+    update:
+      message: 'El producto se actualizó con éxito'
+    destroy:
+      message: 'El producto fue eliminado con éxito'
+
   number:
     currency:
       format:

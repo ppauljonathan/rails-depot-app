@@ -4,8 +4,11 @@
     <li>
       <%= category.name %>
       <ul>
-        <% category.sub_categories.find_each do |sub_category| %>
-          <li><%= sub_category.name %></li>
+        <% if category.sub_categories.present? %>
+          <h5>Sub Categories</h5>
+          <% category.sub_categories.each do |sub_category| %>
+            <li><%= sub_category.name %></li>
+          <% end %>
         <% end %>
       </ul>
     </li>

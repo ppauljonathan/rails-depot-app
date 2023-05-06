@@ -5,8 +5,11 @@ class ApplicationController < ActionController::Base
   before_action :authorize, :check_user_role
   before_action :set_i18n_locale_from_params
   before_action :increment_hit_counter
+  before_action :load_current_user
 
   around_action :benchmark_response_time
+
+
 
   protected
 
@@ -18,6 +21,12 @@ class ApplicationController < ActionController::Base
       unless User.find_by(id: session[:user_id])
         redirect_to login_url, notice: 'Please Log In'
       end
+    end
+
+    def load_current_user
+      return unless session[:user_id]
+
+      @current_user = User.find(session[:user_id])
     end
 
     def set_i18n_locale_from_params
