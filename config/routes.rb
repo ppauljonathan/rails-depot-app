@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  get 'category/index'
   get 'admin' => 'admin#index'
-  get 'categories', to: 'categories#index'
+
+  resources :categories
+
   controller :sessions do
     get 'login' => :new
     post 'login' => :create
@@ -19,13 +20,13 @@ Rails.application.routes.draw do
   end
 
   scope '(:locale)' do
-    resources :orders
     resources :users do
       collection do
         get 'orders'
-        get 'line_items(/page/:page_id)', to: 'users#line_items', defaults: { page_id: 1 }
+        get 'line_items'
       end
     end
+    resources :orders
     resources :line_items
     resources :carts
     resources :products, path: '/books'

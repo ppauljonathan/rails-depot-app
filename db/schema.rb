@@ -33,8 +33,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_051440) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -53,7 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_051440) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -63,10 +63,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_051440) do
     t.string "city"
     t.string "country"
     t.string "pincode"
-    t.integer "user_id"
+    t.string "addressable_type"
+    t.integer "addressable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_addresses_on_user_id"
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -76,12 +77,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_051440) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.integer "super_category_id"
+    t.string "name", null: false
+    t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "products_count", default: 0
-    t.index ["super_category_id"], name: "index_categories_on_super_category_id"
+    t.index ["name"], name: "index_categories_on_name"
+    t.index ["parent_id"], name: "index_categories_on_parent_id"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -91,11 +93,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_051440) do
     t.datetime "updated_at", null: false
     t.integer "quantity", default: 1
     t.integer "order_id"
-    t.integer "user_id"
     t.index ["cart_id"], name: "index_line_items_on_cart_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
     t.index ["product_id"], name: "index_line_items_on_product_id"
-    t.index ["user_id"], name: "index_line_items_on_user_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -119,7 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_051440) do
     t.boolean "enabled", default: false
     t.decimal "discount_price", precision: 8, scale: 2
     t.string "permalink"
-    t.integer "category_id", default: 1, null: false
+    t.integer "category_id", null: false
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
@@ -143,12 +143,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_051440) do
     t.string "role", default: "user", null: false
   end
 
-  add_foreign_key "addresses", "users"
-  add_foreign_key "categories", "categories", column: "super_category_id"
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "products"
-  add_foreign_key "line_items", "users"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
   add_foreign_key "support_requests", "orders"
