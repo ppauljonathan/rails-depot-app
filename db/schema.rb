@@ -63,10 +63,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_27_123729) do
     t.string "city"
     t.string "country"
     t.string "pincode"
-    t.integer "user_id"
+    t.string "addressable_type"
+    t.integer "addressable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_addresses_on_user_id"
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -140,7 +141,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_27_123729) do
     t.string "email"
   end
 
-  add_foreign_key "addresses", "users"
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "orders"

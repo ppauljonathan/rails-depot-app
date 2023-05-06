@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
   has_many :line_items, through: :orders
 
-  has_one :address, dependent: :destroy
+  has_one :address, dependent: :destroy, as: :addressable
   accepts_nested_attributes_for :address
 
   private
