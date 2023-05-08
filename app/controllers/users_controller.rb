@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
   skip_before_action :authorize, only: %i[new create]
-  
 
   LINE_ITEMS_PER_PAGE = 5
 
@@ -74,7 +73,7 @@ class UsersController < ApplicationController
   end
 
   def line_items
-    @current_page = params[:page] || 1 
+    @current_page = params[:page] || 1
 
     @line_items = @current_user.line_items
                        .limit(LINE_ITEMS_PER_PAGE)
