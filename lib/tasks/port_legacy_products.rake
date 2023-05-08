@@ -1,4 +1,4 @@
-namspace :products do
+namespace :products do
   desc 'Assign all old products to a particular category'
   
   task :assign_to_category, [:category_name] => :environment do
