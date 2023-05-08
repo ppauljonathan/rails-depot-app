@@ -1,36 +1,35 @@
 Rails.application.routes.draw do
-  get 'admin' => 'admin#index'
+  root 'store#index', as: 'store_index', via: :all
 
-  resources :categories
+  constraints(->(req) { !/Chrome/.match?(req.env['HTTP_USER_AGENT']) }) do
+    get 'admin' => 'admin#index'
 
-  controller :sessions do
-    get 'login' => :new
-    post 'login' => :create
-    delete 'logout' => :destroy
-  end
+    resources :categories, only: [:index, :show], id: /\d+/
+    resources :categories, to: redirect('/'), status: 302
 
-  resources :support_requests, only: %i[index update]
-
-  # get '/users/orders'
-  # get '/users/line_items(/*page)', to: 'users#line_items'
-
-  namespace :admin do
-    get 'categories', to: 'categories#index'
-    get 'reports', to: 'reports#index'
-  end
-
-  scope '(:locale)' do
-    resources :users do
-      collection do
-        get 'orders'
-        get 'line_items'
-      end
+    controller :sessions do
+      get 'login' => :new
+      post 'login' => :create
+      delete 'logout' => :destroy
     end
-    resources :orders
-    resources :line_items
-    resources :carts
-    resources :products, path: '/books'
-    root 'store#index', as: 'store_index', via: :all
+
+    resources :support_requests, only: %i[index update]
+
+    namespace :admin do
+      get 'categories', to: 'categories#index'
+      get 'reports', to: 'reports#index'
+    end
+
+    get 'my-orders', to: 'users#orders'
+    get 'my-line-items(/page/:page_id)', to: 'users#line_items'
+    
+    scope '(:locale)' do
+      resources :orders
+      resources :users
+      resources :line_items
+      resources :carts
+      resources :products, path: '/books'
+    end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

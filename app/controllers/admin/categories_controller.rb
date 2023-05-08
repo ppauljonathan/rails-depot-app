@@ -1,5 +1,5 @@
 class Admin::CategoriesController < ApplicationController
   def index
-    @categories = Category.includes(:super_category)
+    @categories = Category.includes(:parent)
   end
 end

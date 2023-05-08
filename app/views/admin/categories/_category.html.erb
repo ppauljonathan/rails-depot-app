@@ -1,5 +1,5 @@
 <tr>
-  <td><%= category.name %></td>
-  <td><%= category.super_category&.name || '-' %></td>
+  <td><%= link_to category.name, "/categories/#{category.id}" %></td>
+  <td><%= category.parent&.name || '-' %></td>
   <td><%= category.products_count %></td>
 </tr>
