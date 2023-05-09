@@ -1,5 +1,21 @@
-<h1>Order#received</h1>
+<%= t('.honorific') %> <%= @order.name %>
 
-<p>
-  <%= @greeting %>, find me in app/views/order_mailer/received.html.erb
-</p>
+<%= t('.order_summary') %>
+
+<table>
+  <tr>
+    <th><%= t('.sno') %></th>
+    <th><%= t('.item') %></th>
+    <th><%= t('.image') %></th>
+    <th><%= t('.qty') %></th>
+    <th><%= t('.price') %></th>
+  </tr>
+
+  <% @line_items.each_with_index do |line_item, index| %>
+    <%= render partial: 'line_item', object: line_item, locals:{ sno: (index + 1) } %>
+  <% end %>
+  <tr>
+    <td colspan=4><%= t('.total') %>: </td>
+    <td><%= @order.total_price %></td>
+  </tr>
+</table>

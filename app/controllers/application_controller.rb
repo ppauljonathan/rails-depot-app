@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :authorize, :check_user_role
   before_action :set_i18n_locale_from_params
   before_action :increment_hit_counter
-  before_action :load_current_user
+  before_action :load_current_user, :set_i18n_locale_from_current_user
 
   around_action :benchmark_response_time
 
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
     def authorize
       unless User.find_by(id: session[:user_id])
-        redirect_to login_url, notice: 'Please Log In'
+        redirect_to login_url, notice: t('.login')
       end
     end
 
@@ -39,6 +39,13 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+
+    def set_i18n_locale_from_current_user
+      return unless @current_user
+      
+      I18n.locale = @current_user.language_preference
+    end
+
 
     def increment_hit_counter
       @@hit_counter ||= 0
@@ -67,7 +74,7 @@ class ApplicationController < ActionController::Base
       return unless request.path.split('/')[-2] == 'admin'
 
       unless current_user.role == 'admin'
-        redirect_to(store_index_path, notice: 'You don\'t have privilege to access this section')
+        redirect_to(store_index_path, notice: t('.restricted_access'))
       end
     end
 end

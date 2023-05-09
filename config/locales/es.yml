@@ -1,5 +1,22 @@
 es:
 
+  admin:
+    reports:
+      index:
+        restricted_access: "No tienes acceso a esta sección"
+
+  order_mailer:
+    received:
+      order_confirmation: 'Confirmación del pedido'
+      honorific: 'Caro'
+      order_summary: 'Gracias por ordenar en la librería Pragmatic, aquí hay un resumen de su pedido:'
+      sno: 'Número'
+      item: 'Artículo'
+      image: 'Imagen'
+      qty: 'Cantidad'
+      price: 'Precio'
+      total: 'Total'
+
   products:
     create:
       message: 'El producto fue creado con éxito'
@@ -22,6 +39,9 @@ es:
       messages:
         inclusion: "no est&aacute; incluido en la lista"
         blank:     "no puede quedar en blanco"
+        invalid: 'es invalido'
+        confirmation: 'No es lo mismo'
+  
   errors:
     template:
       body:        "Hay problemas con los siguientes campos:"
@@ -42,6 +62,14 @@ es:
       title:       "Carrito de la Compra"
       empty:       "Vaciar Carrito"
       checkout:    "Comprar"
+    create:
+      message: 'El carrito fue creado con éxito'
+    update:
+      message: 'El carrito se actualizó con éxito'
+    destroy:
+      message: 'El carrito esta vacío'
+    show:
+      invalid: 'El carrito no es válido'
 
   store:
     index:
@@ -70,6 +98,13 @@ es:
         expiration_date: "Expiración"
       purchase_order_pay_type:
         po_number: "Número"
+    create:
+      empty_cart: 'El carrito no debe estar vacío'
+      message: 'Gracias por su orden'
+    update:
+      message: 'El pedido se ha actualizado correctamente'
+    destroy:
+      message: 'El pedido ha sido destruido con éxito'
 
   thanks:          "Gracias por su pedido"
 
@@ -99,3 +134,17 @@ es:
       greeting: 'Estimade'
       message: 'Gracias por registrarse en el sitio web de Pragmatic Programmers'
       welcome: 'Bienvenido'
+    consolidated_orders:
+      consolidated_orders: 'Pedidos Consolidados'
+      honorific: 'Estimade'
+      message: 'Aquí tienes un resumen consolidado de todos tus pedidos desde nuestra web'
+
+  sessions:
+    destroy:
+      message: 'Desconectado'
+  
+  line_items:
+    update:
+      message: 'La línea de pedido se actualizó correctamente'
+    destroy:
+      message: 'La línea de pedido se destruyó correctamente'

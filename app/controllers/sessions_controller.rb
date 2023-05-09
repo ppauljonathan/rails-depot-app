@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
 
-  skip_before_action :authorize, :logout_if_inactive, :check_user_role, :load_current_user
+  skip_before_action :authorize, :logout_if_inactive, :check_user_role, :load_current_user, :set_i18n_locale_from_current_user
 
   def new
   end
@@ -20,6 +20,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to store_index_url, notice: 'Logged Out'
+    redirect_to store_index_url, notice: t.('.message')
   end
 end
