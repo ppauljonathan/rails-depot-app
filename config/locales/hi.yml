@@ -1,0 +1,176 @@
+hi:
+
+  admin:
+    reports:
+      index:
+        restricted_access: "आपके पास इस अनुभाग तक पहुंच नहीं है"
+
+  order_mailer:
+    received:
+      order_confirmation: 'आदेश की पुष्टि'
+      honorific: 'माननीय'
+      order_summary: 'व्यावहारिक बुकस्टोर पर ऑर्डर करने के लिए धन्यवाद, यहां आपके आदेश का सारांश है:'
+      sno: 'अनुक्रमांक'
+      item: 'मद'
+      image: 'प्रतिबिंब'
+      qty: 'परिमाण'
+      price: 'दाम'
+      total: 'कुल'
+
+  products:
+    create:
+      message: 'उत्पाद सफलतापूर्वक बनाया गया था'
+    update:
+      message: 'उत्पाद सफलतापूर्वक अद्यतन किया गया था'
+    destroy:
+      message: 'उत्पाद सफलतापूर्वक हटा दिया गया था'
+
+  number:
+    currency:
+      format:
+        unit:      "$"
+        precision: 2
+        separator: "."
+        delimiter: ","
+        format:    "%u%n"
+
+  activerecord:
+    errors:
+      messages:
+        inclusion: "सूची में नहीं है"
+        blank:     "खाली है"
+        invalid: 'इनवैलिड है'
+        confirmation: 'अलग है पासवर्ड से'
+    models:
+      user: 'उपयोगकर्ता'
+      cart: 'कार्ट'
+      line_item: 'लाइन आइटम'
+      order: 'ऑर्डर'
+      product: 'उत्पाद'
+    
+    attributes:
+      user:
+        name: 'नाम'
+        email: 'ईमेल'
+        password: 'पासवर्ड'
+        confirm: 'पुष्टि'
+      order:
+        name: 'नाम'
+        email: 'ईमेल'
+        address: 'पता'
+      product:
+        title: 'शीर्षक'
+        description: 'विवरण'
+        image_url: 'छवि यूआरएल'
+        price: 'कीमत'
+        enabled: 'सक्रिय'
+        discount_price: 'डिस्काउंट कीमत'
+
+
+  errors:
+    template:
+      body:        "निम्न फ़ील्ड के साथ समस्याएँ थीं:"
+      header:       
+        one:       "1 त्रुटि ने इस %{model} को सहेजने से रोक दिया"
+        other:     "%{count} त्रुटियों ने इस %{model} को सहेजे जाने से रोक दिया"
+
+  layouts:
+    application:
+      title:       "व्यावहारिक बुकशेल्फ"
+      home:        "घर"
+      questions:   "सवाल"
+      news:        "समाचार"
+      contact:     "संपर्क"
+
+  carts:
+    cart:
+      title:       "आपकी गाड़ी"
+      empty:       "खाली गाड़ी"
+      checkout:    "चेकआउट"
+    create:
+      message: 'कार्ट सफलतापूर्वक बनाया गया था'
+    update:
+      message: 'कार्ट सफलतापूर्वक अपडेट किया गया था'
+    destroy:
+      message: 'कार्ट खाली है'
+    show:
+      invalid: 'कार्ट अमान्य है'
+
+  store:
+    index:
+      title_html:  "आपकी व्यावहारिक सूची"
+      add_html:    "कार्ट में डालें"
+
+  orders:
+    new:
+      legend:       "कृपया अपना विवरण दर्ज करें"
+    form:
+      name:         "नाम"
+      address_html: "पता"
+      email:        "ईमेल"
+      pay_type:     "भुगतान"
+      pay_prompt_html: "भुगतान विधि का चयन करें"
+      submit:       "ऑर्डर दें"
+      pay_types:
+        check:           "चेक"
+        credit_card:     "क्रेडिट कार्ड"
+        purchase_order:  "खरीद आदेश"
+      check_pay_type:
+        routing_number: "रूटिंग #"
+        account_number: "खाता #"
+      credit_card_pay_type:
+        cc_number: "CC #"
+        expiration_date: "समाप्ति"
+      purchase_order_pay_type:
+        po_number: "PO #"
+    create:
+      empty_cart: 'कार्ट खाली नहीं होना चाहिए'
+      message: 'आपके ऑर्डर के लिए धन्यवाद'
+    update:
+      message: 'आदेश सफलतापूर्वक अपडेट कर दिया गया है'
+    destroy:
+      message: 'आदेश सफलतापूर्वक नष्ट कर दिया गया है'
+
+
+  thanks:          "आप अपने आदेश के लिए धन्यवाद"
+
+  users:
+    new:
+      title: 'नया उपयोगकर्ता'
+      back: 'उपयोगकर्ताओं पर वापस जाएँ'
+    form:
+      legend: 'उपयोगकर्ता विवरण दर्ज करें'
+      name: 'नाम:'
+      email: 'ईमेल:'
+      password: 'पासवर्ड:'
+      confirm: 'पुष्टि:'
+      address: 'पता:'
+      state: 'राज्य:'
+      country: 'देश:'
+      pincode: 'पिन कोड:'
+    create:
+      create_notice: 'उपयोगकर्ता सफलतापूर्वक बनाया गया था'
+    update:
+      update_notice: 'उपयोगकर्ता सफलतापूर्वक अद्यतन किया गया था'
+    destroy:
+      destroy_notice: 'उपयोगकर्ता सफलतापूर्वक नष्ट हो गया था'
+  
+  user_mailer:
+    registered:
+      greeting: 'माननीय'
+      message: 'व्यावहारिक प्रोग्रामर वेबसाइट पर पंजीकरण करने के लिए धन्यवाद'
+      welcome: 'स्वागत है'
+    consolidated_orders:
+      consolidated_orders: 'समेकित आदेश'
+      honorific: 'माननीय'
+      message: 'यहां हमारी वेबसाइट से आपके सभी ऑर्डर का समेकित सारांश दिया गया है'
+
+  sessions:
+    destroy:
+      message: 'बाहर आ गये'
+  
+  line_items:
+    update:
+      message: 'लाइन आइटम सफलतापूर्वक अपडेट किया गया'
+    destroy:
+      message: 'लाइन आइटम सफलतापूर्वक नष्ट कर दिया गया था'

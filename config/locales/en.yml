@@ -1,5 +1,22 @@
 en:
 
+  admin:
+    reports:
+      index:
+        restricted_access: "You don't have access to this section"
+
+  order_mailer:
+    received:
+      order_confirmation: 'Order confirmation'
+      honorific: 'Dear'
+      order_summary: 'Thank you for ordering at the Pragmatic Bookstore, here is a summary of your order:'
+      sno: 'Sno'
+      item: 'Item'
+      image: 'Image'
+      qty: 'Quantity'
+      price: 'Price'
+      total: 'Total'
+
   products:
     create:
       message: 'Product was Successfully Created'
@@ -16,6 +33,14 @@ en:
         separator: "."
         delimiter: ","
         format:    "%u%n"
+
+  activerecord:
+    errors:
+      messages:
+        inclusion: "not in list"
+        blank:     "must not be blank"
+        invalid: 'is invalid'
+
 
   errors:
     template:
@@ -37,6 +62,14 @@ en:
       title:       "Your Cart"
       empty:       "Empty cart"
       checkout:    "Checkout"
+    create:
+      message: 'Cart was successfully created'
+    update:
+      message: 'Cart was successfully updated'
+    destroy:
+      message: 'Cart is empty'
+    show:
+      invalid: 'Cart is invalid'
 
   store:
     index:
@@ -65,6 +98,13 @@ en:
         expiration_date: "Expiry"
       purchase_order_pay_type:
         po_number: "PO #"
+    create:
+      empty_cart: 'Cart must not be empty'
+      message: 'Thank you for your order'
+    update:
+      message: 'Order has been updated successfully'
+    destroy:
+      message: 'Order has been destroyed successfully'
 
 
   thanks:          "Thank you for your order"
@@ -95,3 +135,17 @@ en:
       greeting: 'Dear'
       message: 'Thank you for registering on the Pragmatic Programmers website'
       welcome: 'Welcome'
+    consolidated_orders:
+      consolidated_orders: 'Consolidated Orders'
+      honorific: 'Dear'
+      message: 'Here is a consolidated summary of all your orders from our website'
+
+  sessions:
+    destroy:
+      message: 'Logged Out'
+  
+  line_items:
+    update:
+      message: 'Line Item was successfully updated '
+    destroy:
+      message: 'Line Item was successfully destroyed'

@@ -2,18 +2,18 @@
   <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
 
   <td class="image">
-    <% if product.images_attachments.count.zero? %>
+    <% if product.images.empty? %>
       <%= image_tag(product.image_url, class: 'list_image') %>
-    <% elsif rendered_on_index? %>
-      <%= image_tag(url_for(product.images_attachments[0]), class: 'list_image') %>
+    <% elsif rendered_on_index %>
+      <%= image_tag(url_for(product.images[0]), class: 'list_image') %>
     <% else %>
-      <%= render 'image_slider', images: product.images_attachments %>
+      <%= render 'image_slider', images: product.images %>
     <% end %>
   </td>
 
   <td class="description">
     <h1><%= product.title %></h1>
-    <% if rendered_on_index? %>
+    <% if rendered_on_index %>
       <p>
         <%= truncate(strip_tags(product.description),
                       length: 80) %>
@@ -25,7 +25,7 @@
     <% end %>
   </td>
 
-  <% if rendered_on_index? %>
+  <% if rendered_on_index %>
     <td class="actions">
       <ul>
         <li><%= link_to 'Show', product %></li>

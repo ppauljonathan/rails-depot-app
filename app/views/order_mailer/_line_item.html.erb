@@ -1,0 +1,11 @@
+<tr>
+  <td><%= sno %></td>
+  <td><%= line_item.product.title %></td>
+  <% if line_item.product.images.empty? %>
+    <td><%= image_tag line_item.product.image_url %></td>
+  <% else %>
+    <td><%= image_tag(rails_blob_url(line_item.product.images[0], only_path: true)) %></td>
+  <% end %>
+  <td><%= line_item.quantity %></td>
+  <td><%= number_to_currency line_item.total_price %></td>
+</tr>

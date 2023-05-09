@@ -5,4 +5,4 @@
     <li><%= render 'line_items/line_item', line_item: line_item %></li>
   <% end %>
 </ul>
-<h4>Total Price: <%= order.line_items.map(&:total_price).reduce(:+) %></h4>
+<h4>Total Price: <%= order.total_price %></h4>

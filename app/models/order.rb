@@ -61,9 +61,13 @@ class Order < ApplicationRecord
     )
 
     if payment_result.succeeded?
-      OrderMailer.received(self).deliver_later
+      OrderMailer.received(self.id).deliver_later
     else
       raise payment_result.error
     end
+  end
+
+  def total_price
+    line_items.sum(&:total_price)
   end
 end

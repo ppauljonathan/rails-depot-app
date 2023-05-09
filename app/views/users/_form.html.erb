@@ -3,7 +3,9 @@
 <%= form_with(model: user) do |form| %>
   <% if user.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2>
+        <%= t('errors.template.header', count: user.errors.count, model: t('activerecord.models.user')) %>
+      </h2>
 
       <ul>
         <% user.errors.each do |error| %>
@@ -51,6 +53,11 @@
         <%= address_form.text_field :pincode %>
       </div>
     <% end %>
+  </div>
+
+  <div>
+    <%= t('.language') %>
+    <%= form.select :language_preference, LANGUAGES, include_blank: 'Select language' %>
   </div>
 
   <div>

@@ -8,6 +8,19 @@ class UserMailer < ApplicationMailer
     @user = User.find(user_id)
     return unless @user
 
-    mail to: @user.email, subject: t('.welcome')
+    I18n.with_locale(@user.language_preference) do
+      mail to: @user.email, subject: t('.welcome')
+    end
+  end
+
+  def consolidated_orders(user_id)
+    @user = User.find(user_id)
+    return unless @user
+
+    @orders = @user.orders
+    
+    I18n.with_locale(@user.language_preference) do
+      mail to: @user.email, subject: t('.consolidated_orders')
+    end
   end
 end
