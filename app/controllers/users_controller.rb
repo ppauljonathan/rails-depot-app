@@ -17,10 +17,12 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    @user.build_address
   end
 
   # GET /users/1/edit
   def edit
+    @user.build_address unless @user.address
   end
 
   # POST /users or /users.json
@@ -68,6 +70,7 @@ class UsersController < ApplicationController
 
   def orders
     @orders = @current_user.orders
+    render layout: 'my_orders'
   end
 
   def line_items

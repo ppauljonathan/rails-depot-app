@@ -1,22 +1,46 @@
 <div id="<%= dom_id product %>">
-  <p>
-    <strong>Title:</strong>
-    <%= product.title %>
-  </p>
+  <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
 
-  <p>
-    <strong>Description:</strong>
-    <%= product.description %>
-  </p>
+  <td class="image">
+    <% if product.images_attachments.count.zero? %>
+      <%= image_tag(product.image_url, class: 'list_image') %>
+    <% elsif rendered_on_index? %>
+      <%= image_tag(url_for(product.images_attachments[0]), class: 'list_image') %>
+    <% else %>
+      <%= render 'image_slider', images: product.images_attachments %>
+    <% end %>
+  </td>
 
-  <p>
-    <strong>Image url:</strong>
-    <%= product.image_url %>
-  </p>
+  <td class="description">
+    <h1><%= product.title %></h1>
+    <% if rendered_on_index? %>
+      <p>
+        <%= truncate(strip_tags(product.description),
+                      length: 80) %>
+      </p>
+    <% else %>
+      <p>
+        <%= strip_tags(product.description) %>
+      </p>
+    <% end %>
+  </td>
 
-  <p>
-    <strong>Price:</strong>
-    <%= product.price %>
-  </p>
+  <% if rendered_on_index? %>
+    <td class="actions">
+      <ul>
+        <li><%= link_to 'Show', product %></li>
+        <li><%= link_to 'Edit', edit_product_path(product) %></li>
+        <li>
+          <%= link_to 'Destroy',
+                        product,
+                        method: :delete,
+                      data: { 
+                        turbo_confirm: 'Are you sure?'
+                      } %>
+        </li>
+      </ul>
+    </td>
+  <% end %>
+</tr>
 
 </div>

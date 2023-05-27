@@ -27,6 +27,10 @@
   </div>
 
   <div>
+    <%= form.file_field :images, multiple: true %>
+  </div>
+
+  <div>
     <%= form.label :price, style: "display: block" %>
     <%= form.text_field :price %>
   </div>
@@ -45,7 +49,14 @@
     <%= form.label :permalink, style: "display: block" %>
     <%= form.text_field :permalink %>
   </div>
+
   <div>
+    <%= form.label :category, style: "display: block" %>
+    <%= form.collection_select :category_id, Category.all, :id, :name, include_blank: 'Select One', selected: nil %>
+  </div>
+
+  <div>
+    <br>
     <%= form.submit %>
   </div>
 <% end %>

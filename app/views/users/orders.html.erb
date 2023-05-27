@@ -1,3 +1,8 @@
+<% content_for :title do %>
+  Your Orders
+<% end %>
+
+
 <ul>
   <% @orders.each do |order| %>
     <li><%= render 'order', order: order %></li>
